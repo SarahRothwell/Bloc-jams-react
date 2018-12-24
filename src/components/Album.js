@@ -40,21 +40,22 @@ trackMouse(index){
   this.setState({onMouse: index});
 }
 
-untrackMouse(index){
+untrackMouse(){
   this.setState({onMouse: null});
 }
 
 playPauseChange(song, index){
   const isSameSong = this.state.currentSong === song;
-      if (this.state.onMouse === index){
-        if (this.state.isPlaying && isSameSong){
-          return <button>pause</button>;
-        } else {
-          return <button>play</button>;
-        }
-      } else {
-        return {index};
-      }
+  if (this.state.isPlaying && isSameSong){
+    console.log("play");
+    return <td><button><span className="ion-pause"></span></button></td>;
+  } else if (this.state.onMouse === index){
+    console.log("pause");
+    return <td><button><span className="ion-play"></span></button></td>;
+  } else {
+    return <td><span className="song-number">{index+1}</span></td>
+    }
+  }
 
 handleSongClick(song) {
   const isSameSong = this.state.currentSong === song;
@@ -85,8 +86,16 @@ handleSongClick(song) {
           </colgroup>
           <tbody>
             { this.state.album.songs.map((song, index) =>
-            <tr onMouseEnter={() => this.trackMouse(index)} onMouseLeave={() => this.untrackMouse()} className="song" key={index} onClick = {() => this.handleSongClick(song)}>
-              <td>{this.playPauseChange(song,index)}</td>
+            <tr className="song" key={index} onMouseEnter={() => this.trackMouse(index)} onMouseLeave={() => this.untrackMouse()} onClick = {() => this.handleSongClick(song)}>
+              {/* <td>{this.playPauseChange(song,index)}</td> */}
+              {/*}<td className="song-actions">
+                <button>
+                <span className="song-number">{index+1}</span>
+                <span className="ion-play"></span>
+                <span className="ion-pause"></span>
+              </button>
+            </td>*/}
+              {this.playPauseChange(song, index)}
               <td>Title: {song.title}</td>
               <td>Duration: {song.duration} seconds</td>
             </tr>
