@@ -48,10 +48,10 @@ playPauseChange(song, index){
   const isSameSong = this.state.currentSong === song;
   if (this.state.isPlaying && isSameSong){
     console.log("play");
-    return <td><button><span className="ion-pause"></span></button></td>;
+    return <td><button><span className="ion-md-pause"></span></button></td>;
   } else if (this.state.onMouse === index){
     console.log("pause");
-    return <td><button><span className="ion-play"></span></button></td>;
+    return <td><button><span className="ion-md-play"></span></button></td>;
   } else {
     return <td><span className="song-number">{index+1}</span></td>
     }
