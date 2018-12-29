@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import albumData from './../data/albums';
+import PlayerBar from './PlayerBar';
 
 class Album extends Component {
   constructor(props){
@@ -47,10 +48,8 @@ untrackMouse(){
 playPauseChange(song, index){
   const isSameSong = this.state.currentSong === song;
   if (this.state.isPlaying && isSameSong){
-    console.log("play");
     return <td><button><span className="ion-md-pause"></span></button></td>;
   } else if (this.state.onMouse === index){
-    console.log("pause");
     return <td><button><span className="ion-md-play"></span></button></td>;
   } else {
     return <td><span className="song-number">{index+1}</span></td>
@@ -66,6 +65,22 @@ handleSongClick(song) {
           this.play();
           }
       }
+
+handlePrevClick(){
+  const currentIndex = this.state.album.songs.findIndex(song => this.state.currentSong === song);
+  const newIndex = Math.max(0, currentIndex - 1);
+  const newSong = this.state.album.songs[newIndex];
+  this.setSong(newSong);
+  this.play();
+}
+
+handleNextClick(){
+  const currentIndex = this.state.album.songs.findIndex(song => this.state.currentSong === song);
+  const newIndex = Math.min(4, currentIndex + 1);
+  const newSong = this.state.album.songs[newIndex];
+  this.setSong(newSong);
+  this.play();
+}
 
   render(){
     return (
@@ -87,22 +102,21 @@ handleSongClick(song) {
           <tbody>
             { this.state.album.songs.map((song, index) =>
             <tr className="song" key={index} onMouseEnter={() => this.trackMouse(index)} onMouseLeave={() => this.untrackMouse()} onClick = {() => this.handleSongClick(song)}>
-              {/* <td>{this.playPauseChange(song,index)}</td> */}
-              {/*}<td className="song-actions">
-                <button>
-                <span className="song-number">{index+1}</span>
-                <span className="ion-play"></span>
-                <span className="ion-pause"></span>
-              </button>
-            </td>*/}
               {this.playPauseChange(song, index)}
-              <td>Title: {song.title}</td>
-              <td>Duration: {song.duration} seconds</td>
+              <td>{song.title}</td>
+              <td>{song.duration}</td>
             </tr>
             )
             }
           </tbody>
         </table>
+        <PlayerBar
+          isPlaying={this.state.isPlaying}
+          currentSong={this.state.currentSong}
+          handleSongClick={()=> this.handleSongClick(this.state.currentSong)}
+          handlePrevClick={() => this.handlePrevClick()}
+          handleNextClick={() => this.handleNextClick()}
+        />
       </section>
     );
 
