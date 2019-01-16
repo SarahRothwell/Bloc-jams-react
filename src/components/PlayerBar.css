@@ -1,0 +1,43 @@
+.player-bar-container { position:relative; margin: 0 auto; width:500px}
+
+.player-controls {
+  background-color: white;
+  height: 25px;
+  display: grid;
+  grid-template-columns: 25px 245px 50px 10px 50px 25px 85px;
+  justify-content:center;
+  padding-bottom: 5px;
+  padding-top: 15px;
+}
+
+.tracks {
+  background-color: white;
+  height: 25px;
+  padding-bottom: 20px;
+}
+
+.seek-bar-time{
+  width: 240px;
+}
+
+.seek-bar-volume{
+  width: 70px;
+}
+
+.current-time {
+  font-size: 15px;
+}
+
+.total-time {
+  font-size: 15px;
+}
+
+.volume-control{
+  float: center;
+}
+
+#previous, #next {
+  font-size: 15px;
+  margin-left: 15px;
+  margin-right: 15px;
+}
